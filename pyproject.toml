@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "b-trader"
+version = "0.1.0"
+description = "Telegram-controlled Binance spot and USD-M futures risk-based order tool"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "httpx>=0.27,<1",
+  "keyring>=25,<26",
+  "pyotp>=2.9,<3",
+  "python-dotenv>=1.0,<2",
+  "python-telegram-bot[job-queue]>=21,<23",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "pytest-asyncio>=0.24,<1",
+  "ruff>=0.8,<1",
+]
+
+[project.scripts]
+btrader = "btrader.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
